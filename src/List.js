@@ -1,34 +1,22 @@
 import React from 'react';
-import db from './db.js';
+import ListItem from './ListItem';
 
-class List extends React.Component {
+const List = ( props ) => {
+  const listItems = props.items.map(( item ) => {
 
-  constructor() {
-    super();
-  }
- 
-  render() {
+    return (
+      <ListItem
+        key = {item.id}
+        item = {item}
+      />
+    )
+  });
 
-    let listItems;
+  return (
+    <ul>
+      {listItems}
+    </ul>
+  )
+};
 
-    db.getAllPostsPromise.then(function(data) {
-      listItems = data.Items.map((item) =>
-        <li key={item.id}>
-          {item.name}
-        </li>
-      );
-
-      
-
-      return (
-        <ul>
-          {listItems}
-        </ul>
-      );
-
-    }).catch(function(err) {
-      console.log(err);
-    });
-  }
-}
 export default List;
