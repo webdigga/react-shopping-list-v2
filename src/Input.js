@@ -1,35 +1,33 @@
-import React from 'react';
-import db from './db';
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 
-function addIngredientInput(e) {
-	e.preventDefault();
-	const input = document.getElementById('ingredient-input');
-	const value = input.value;
-	console.log(value);
+class Input extends Component {
+	constructor(props) {
+		super(props);
+		// this.state = {
+		// 	ingredients: props.items
+		// };
+		// console.log(this.state);
+	}
 
-	const Item = {
-		'id': 12345678,
-		'name': value
-	};
+	onInputChange( ingredient ) {
+		// const timestamp = new Date().getUTCMilliseconds();
+		// const item = {
+		// 	'id': timestamp,
+		// 	'name': ingredient
+		// };
+		// this.addIngredient(item);
+	}
 
-	db.addRecord(Item).then(function() {
-		console.log('Success');
-	}).catch(function(err) {
-		console.log(err);
-	});
+	render() {
+		return (
+			<div>
+				<input
+					onChange={event => this.props.addIngredient( this, event.target.value ) }
+				/>
+			</div>
+		)
+	}
 }
-
-
-const Input = () => {
-
-	return (
-		<div>
-			<form>
-				<input id="ingredient-input" type="text" />
-				<input type="submit" onClick={addIngredientInput} />
-			</form>
-		</div>
-	)
-};
 
 export default Input;

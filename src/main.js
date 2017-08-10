@@ -15,32 +15,48 @@ class App extends Component {
 		super( props );
 
 		this.state = {
-			items: []
+			ingredients: []
 		};
 
-		this.getAllIngredients();
+		//this.getAllIngredients();
+		//this.addIngredient = this.addIngredient.bind(this);
 	}
 
 	getAllIngredients() {
 		db.getAllRecords.then(function( data ) {
 			this.setState({
-				items: data.Items
+				ingredients: data.Items
 			});
 		}.bind( this )).catch(function(err) {
 			console.log(err);
 		});
 	}
 
-	render() {
-		//this.addIngredient(4545, 'Booommmm!!!!');
+	addIngredient(ingredient) {
+		const timestamp = new Date().getUTCMilliseconds();
 
+		const item = {
+			'id': timestamp,
+			'name': ingredient
+		};
+		
+		db.addRecord(item).then(function() {
+			this.setState({ 
+				ingredients: this.state.ingredients.concat([item.ingredient])
+			});
+		}).catch(function(err) {
+			console.log(err);
+		});
+	}
+
+	render() {
 		return(
 			<div>
 				<div>
 					<Input />
 				</div>
 				<div>
-					<List items={this.state.items} />
+					<List items={this.state.ingredients} />
 				</div>
 			</div>
 		)
