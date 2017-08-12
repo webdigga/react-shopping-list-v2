@@ -18,12 +18,40 @@ class App extends Component {
 			ingredients: []
 		};
 
-		//this.getAllIngredients();
+		this.getAllIngredients();// = this.getAllIngredients.bind(this);
 		//this.addIngredient = this.addIngredient.bind(this);
 	}
 
 	getAllIngredients() {
-		db.getAllRecords.then(function( data ) {
+		// db.getAllRecords.then(function( data ) {
+		// 	this.setState({
+		// 		ingredients: data.Items
+		// 	});
+		// }.bind( this )).catch(function(err) {
+		// 	console.log(err);
+		// });
+
+		// db.getJSON('/ingredients', function ( ingredients ) {
+		// 	this.setState({
+		// 		ingredients: ingredients.Items
+		// 	});
+		// 	// ingredients.Items.forEach(function ( ingredient ) {
+		// 	// 	this.setState({
+		// 	// 		ingredients: ingredient
+		// 	// 	});
+		//  //    });
+		// }, function ( error ) {
+		//     console.error( error );
+		// });
+		// getJSON('users.json')
+		//   .then(function (data) {
+		//     Promise.all(data.users_list.map(getJSON))
+		//     .then(function (users) {
+		//       console.log(users);
+		//     });
+		//   });
+
+		db.getJSON('/ingredients').then(function( data ) {
 			this.setState({
 				ingredients: data.Items
 			});
@@ -32,21 +60,36 @@ class App extends Component {
 		});
 	}
 
-	addIngredient(ingredient) {
-		const timestamp = new Date().getUTCMilliseconds();
+	// addIngredient(ingredient) {
+	// 	const timestamp = new Date().getUTCMilliseconds();
 
-		const item = {
-			'id': timestamp,
-			'name': ingredient
-		};
+	// 	const item = {
+	// 		'id': timestamp,
+	// 		'name': ingredient
+	// 	};
 		
-		db.addRecord(item).then(function() {
-			this.setState({ 
-				ingredients: this.state.ingredients.concat([item.ingredient])
-			});
-		}).catch(function(err) {
-			console.log(err);
-		});
+	// 	db.addRecord(item).then(function() {
+	// 		this.setState({ 
+	// 			ingredients: this.state.ingredients.concat([item.ingredient])
+	// 		});
+	// 	}).catch(function(err) {
+	// 		console.log(err);
+	// 	});
+	// }
+
+	addIngredient(id, name) {
+		// const params = db.params;
+
+		// params.Item = {
+		// 	'id': id,
+		// 	'name': name
+		// };
+
+		// db.addRecordPromise.then(function(data) {
+		// 	console.log('Success!!!!!');
+		// }).catch(function(err) {
+		// 	console.log(err);
+		// });
 	}
 
 	render() {
@@ -63,4 +106,4 @@ class App extends Component {
 	}
 }
 
-ReactDOM.render( <App />, document.querySelector( '.list__container' ) );
+ReactDOM.render( <App />, document.querySelector( '.container' ) );
