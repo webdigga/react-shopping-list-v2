@@ -27,7 +27,20 @@ exports.findAll = function( req, res ) {
 	}
 };
 
+// Add a single record
+exports.add = function( req, res ) {
+	params.Item = req.body;
+	db.put(params, function( err, data ) {
+		if ( err ) {
+	        console.error( 'Unable to add new item. Error JSON:', JSON.stringify( err, null, 2 ) );
+	    } else {
+	    	res.send( data );
+	    }
+	});
+};
+
+// TODO
 exports.findById = function() {};
-exports.add = function() {};
-exports.update = function() {};
+
+// TODO
 exports.delete = function() {};
