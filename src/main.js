@@ -15,8 +15,7 @@ class App extends Component {
 		super( props );
 		this.getAllIngredients();
 		this.state = {
-			ingredients: [],
-			addIngredient: this.addIngredient
+			ingredients: []
 		};
 	}
 
@@ -25,17 +24,23 @@ class App extends Component {
 			this.setState({
 				ingredients: data.Items
 			});
-		}.bind( this )).catch(function( err ) {
+		}
+		.bind( this ))
+		.catch(function( err ) {
 			console.log( err );
 		});
 	}
 
 	addIngredient( Item ) {
+
+
 		db.postData( '/ingredients', Item ).then(function() {
 			this.setState({ 
-				ingredients: this.state.ingredients.concat( [Item.name] )
+				ingredients: boom.concat( [Item.name] )
 			});
-		}).catch(function( err ) {
+		}
+		.bind(this))
+		.catch(function( err ) {
 			console.log( err );
 		});
 	}
@@ -44,7 +49,7 @@ class App extends Component {
 		return(
 			<div>
 				<div>
-					<Input addIngredient={this.state.addIngredient} />
+					<Input addIngredient={this.addIngredient} />
 				</div>
 				<div>
 					<List items={this.state.ingredients} />

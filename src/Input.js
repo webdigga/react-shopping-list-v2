@@ -4,10 +4,6 @@ import ReactDOM from 'react-dom';
 class Input extends Component {
 	constructor( props ) {
 		super( props );
-		this.state = {
-			ingredients: props.items,
-			addIngredient: props.addIngredient
-		};	
 	}
 
 	onInputChange( ingredient ) {
@@ -16,6 +12,7 @@ class Input extends Component {
 			'id': timestamp,
 			'name': ingredient
 		};
+		this.setState( {Item} );
 		this.props.addIngredient( Item );
 	}
 
