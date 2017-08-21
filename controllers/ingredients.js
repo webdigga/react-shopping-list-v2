@@ -12,7 +12,7 @@ const db = new AWS.DynamoDB.DocumentClient();
 
 // Set the table name used for all the DB functions
 let params = {
-	TableName: 'shopping-list'
+	TableName: 'list-shopping'
 };
 
 // Get alllllllll the records

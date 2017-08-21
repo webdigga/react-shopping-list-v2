@@ -21,6 +21,9 @@ class App extends Component {
 
 	getAllIngredients() {
 		db.getData( '/ingredients' ).then(function( data ) {
+
+			console.log(data.Items);
+
 			this.setState({
 				ingredients: data.Items
 			});
@@ -32,11 +35,9 @@ class App extends Component {
 	}
 
 	addIngredient( Item ) {
-
-
 		db.postData( '/ingredients', Item ).then(function() {
 			this.setState({ 
-				ingredients: boom.concat( [Item.name] )
+				ingredients: this.state.ingredients.concat( [Item] )
 			});
 		}
 		.bind(this))
@@ -46,10 +47,15 @@ class App extends Component {
 	}
 
 	render() {
+
+		const addIngredient = ( Item ) => {
+			this.addIngredient( Item );
+		};
+
 		return(
 			<div>
 				<div>
-					<Input addIngredient={this.addIngredient} />
+					<Input addIngredient={addIngredient} />
 				</div>
 				<div>
 					<List items={this.state.ingredients} />

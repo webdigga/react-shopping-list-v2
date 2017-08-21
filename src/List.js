@@ -3,7 +3,6 @@ import ListItem from './ListItem';
 
 const List = ( props ) => {
   const listItems = props.items.map(( item ) => {
-
     return (
       <ListItem
         key = {item.id}
