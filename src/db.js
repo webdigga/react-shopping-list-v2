@@ -1,3 +1,4 @@
+// Promises for API calls
 function getData( url ) {
 	'use strict';
 	const xhr = new XMLHttpRequest();
@@ -35,7 +36,30 @@ function postData( url, Item ) {
 	});
 }
 
+function deleteData( url, id ) {
+	'use strict';
+
+	console.log(url);
+	console.log(id);
+
+	const xhr = new XMLHttpRequest();
+	return new Promise(( resolve, reject ) => {
+		xhr.onreadystatechange = function () {
+			if ( xhr.readyState === 4 ) {
+				if ( xhr.status === 200 ) {
+					resolve( JSON.parse( xhr.responseText ) );
+				} else {
+					reject( xhr.responseText );
+				}
+			}
+		};
+		xhr.open( 'DELETE', url, true );
+		xhr.send( id );
+	});
+}
+
 module.exports = {
 	getData: getData,
-	postData: postData
+	postData: postData,
+	deleteData: deleteData
 }

@@ -19,11 +19,11 @@ let params = {
 exports.findAll = function( req, res ) {
 	db.scan( params, onScan );
 	function onScan( err, data ) {
-	    if ( err ) {
-	        console.error( 'Unable to scan the table. Error JSON:', JSON.stringify( err, null, 2 ) );
-	    } else {
-	    	res.send( data );
-	    }
+		if ( err ) {
+			console.error( 'Unable to scan the table. Error JSON:', JSON.stringify( err, null, 2 ) );
+		} else {
+			res.send( data );
+		}
 	}
 };
 
@@ -32,15 +32,23 @@ exports.add = function( req, res ) {
 	params.Item = req.body;
 	db.put(params, function( err, data ) {
 		if ( err ) {
-	        console.error( 'Unable to add new item. Error JSON:', JSON.stringify( err, null, 2 ) );
-	    } else {
-	    	res.send( data );
-	    }
+			console.error( 'Unable to add new item. Error JSON:', JSON.stringify( err, null, 2 ) );
+		} else {
+			res.send( data );
+		}
 	});
 };
 
-// TODO
-exports.findById = function() {};
-
-// TODO
-exports.delete = function() {};
+// Delete a record
+exports.delete = function( req, res ) {
+	params.Key = {
+		'id': req.body
+	}
+	db.delete(params, function( err, data ) {
+		if ( err ) {
+			console.error( 'Unable to delete item. Error JSON:', JSON.stringify( err, null, 2 ) );
+		} else {
+			console.log( 'DeleteItem succeeded:', JSON.stringify( data, null, 2 ) );
+		}
+	});
+};

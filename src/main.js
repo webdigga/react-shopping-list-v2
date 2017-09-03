@@ -1,7 +1,3 @@
-// TODO - we need to move the credentials out to separate file!!!!!
-// TODO - Add aws-sdk node module to package json
-// TODO - generate a unique hash here for the uuid
-// TODO - make input field and pass hash + name into DB
 // TODO - Set sublime es6 linting
 
 import React, { Component } from 'react';
@@ -21,9 +17,6 @@ class App extends Component {
 
 	getAllIngredients() {
 		db.getData( '/ingredients' ).then(function( data ) {
-
-			console.log(data.Items);
-
 			this.setState({
 				ingredients: data.Items
 			});
@@ -40,7 +33,24 @@ class App extends Component {
 				ingredients: this.state.ingredients.concat( [Item] )
 			});
 		}
-		.bind(this))
+		.bind( this ))
+		.catch(function( err ) {
+			console.log( err );
+		});
+	}
+
+	deleteIngredient( id ) {
+		db.deleteData( '/ingredients', id ).then(function() {
+
+			console.log('Really Deleted!!!!');
+
+			// TODO - update state of ingredients
+
+			// this.setState({ 
+			// 	ingredients: this.state.ingredients.concat( [Item] )
+			// });
+		}
+		.bind( this ))
 		.catch(function( err ) {
 			console.log( err );
 		});
@@ -51,6 +61,7 @@ class App extends Component {
 		const addIngredient = ( Item ) => {
 			this.addIngredient( Item );
 		};
+		const deleteIngredient = this.deleteIngredient;
 
 		return(
 			<div>
@@ -58,7 +69,7 @@ class App extends Component {
 					<Input addIngredient={addIngredient} />
 				</div>
 				<div>
-					<List items={this.state.ingredients} />
+					<List items={this.state.ingredients} deleteIngredient={deleteIngredient} />
 				</div>
 			</div>
 		)

@@ -7,6 +7,7 @@ const List = ( props ) => {
       <ListItem
         key = {item.id}
         item = {item}
+        deleteIngredient = {props.deleteIngredient}
       />
     )
   });
