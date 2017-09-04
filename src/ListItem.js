@@ -11,7 +11,7 @@ class ListItem extends Component {
 	handleClick() {
 		
 		// We need to pass the id here to the delete endpoint
-		this.props.deleteIngredient(this.props.item.id);
+		this.props.deleteIngredient( this.props.item );
 	}
 
 	render() {

@@ -42,13 +42,13 @@ exports.add = function( req, res ) {
 // Delete a record
 exports.delete = function( req, res ) {
 	params.Key = {
-		'id': req.body
+		'id': req.body.id
 	}
 	db.delete(params, function( err, data ) {
 		if ( err ) {
 			console.error( 'Unable to delete item. Error JSON:', JSON.stringify( err, null, 2 ) );
 		} else {
-			console.log( 'DeleteItem succeeded:', JSON.stringify( data, null, 2 ) );
+			res.send( data );
 		}
 	});
 };

@@ -13,6 +13,8 @@ class App extends Component {
 		this.state = {
 			ingredients: []
 		};
+
+		this.deleteIngredient = this.deleteIngredient.bind( this );
 	}
 
 	getAllIngredients() {
@@ -39,16 +41,13 @@ class App extends Component {
 		});
 	}
 
-	deleteIngredient( id ) {
-		db.deleteData( '/ingredients', id ).then(function() {
-
-			console.log('Really Deleted!!!!');
-
-			// TODO - update state of ingredients
-
-			// this.setState({ 
-			// 	ingredients: this.state.ingredients.concat( [Item] )
-			// });
+	deleteIngredient( Item ) {
+		db.deleteData( '/ingredients', Item ).then(function() {
+			this.setState({
+				ingredients: this.state.ingredients.filter(function( ingredient ) { 
+					return ingredient !== Item;
+				})
+			});
 		}
 		.bind( this ))
 		.catch(function( err ) {
@@ -57,7 +56,6 @@ class App extends Component {
 	}
 
 	render() {
-
 		const addIngredient = ( Item ) => {
 			this.addIngredient( Item );
 		};

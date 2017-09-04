@@ -36,12 +36,8 @@ function postData( url, Item ) {
 	});
 }
 
-function deleteData( url, id ) {
+function deleteData( url, Item ) {
 	'use strict';
-
-	console.log(url);
-	console.log(id);
-
 	const xhr = new XMLHttpRequest();
 	return new Promise(( resolve, reject ) => {
 		xhr.onreadystatechange = function () {
@@ -54,7 +50,8 @@ function deleteData( url, id ) {
 			}
 		};
 		xhr.open( 'DELETE', url, true );
-		xhr.send( id );
+		xhr.setRequestHeader( 'Content-Type', 'application/json; charset=UTF-8' );
+		xhr.send( JSON.stringify( Item ) );
 	});
 }
 
